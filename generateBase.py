@@ -11,9 +11,3 @@ def generateBase(baseArray, powerArray):
             for i in range(currentPower):
                 baseString += currentChar
     return baseString
-
-
-baseArray = ['a', 'a', 'a', 'b']
-powerArray = [1, 1, 1, {'n': 0}]
-
-print(generateBase(baseArray, powerArray))
