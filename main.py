@@ -1,6 +1,15 @@
 def getLanguage():
+  n = int(input("no of alphabets: "))
+  alphabetSet = []
+  print(f"Enter {n} alphabets:")
+  for _ in range(n):
+    alphabetSet.append(input())
+  return alphabetSet
+
+def generateBaseAndPowerArrays(alphabetSet):
   baseArray = []
   powerArray = []
+  print("Enter base and power:")
   while True:
     base = input()
     if base == "end":
@@ -16,7 +25,8 @@ def getLanguage():
   return (baseArray, powerArray)
 
 if __name__ == "__main__":
-  baseArray, powerArray = getLanguage()
+  alphabetSet = getLanguage()
+  baseArray, powerArray = generateBaseAndPowerArrays(alphabetSet)
   print(baseArray)
   print(powerArray)
     
