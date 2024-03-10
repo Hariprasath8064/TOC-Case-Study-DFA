@@ -1,4 +1,4 @@
-import generateBase, getLanguage, generateBaseAndPowerArray
+import generateBase, getLanguage, generateBaseAndPowerArray, generateBaseDFA
 
 if __name__ == "__main__":
   alphabetSet = getLanguage.getLanguage()
@@ -6,4 +6,7 @@ if __name__ == "__main__":
 
   baseCase = generateBase.generateBase(baseArray, powerArray)
   print(baseCase)
+
+  DFA_Matrix = generateBaseDFA.generateBaseDFA(alphabetSet, baseCase)
+  print(DFA_Matrix)
     
