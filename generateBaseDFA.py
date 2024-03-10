@@ -10,11 +10,12 @@ def generateBaseDFA(alphabetSet, baseString):
     for i in range(len(alphabetSet)):
         index_dict[alphabetSet[i]] = i
     statechar = "q"
+    stateprop = ""
     for i in range(len(baseString)):
         newState = statechar + str(i + 1)
         StateFunctions.createState(newState, stateArray)
         currentAlphabet = baseString[i]
-        StateFunctions.updateStateProp(newState, currentAlphabet, stateArray)
-        print(stateArray)
+        stateprop += currentAlphabet
+        StateFunctions.updateStateProp(newState, stateprop, stateArray)
         DFA_Matrix[i][index_dict[currentAlphabet]] = newState
     return (DFA_Matrix, stateArray)
