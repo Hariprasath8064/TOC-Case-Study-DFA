@@ -12,4 +12,4 @@ if __name__ == "__main__":
   print("Base String: ", baseCase)
   print("DFA_Matrix: ", DFA_Matrix)
   print("State_Array: ", stateArray)
-    
+  

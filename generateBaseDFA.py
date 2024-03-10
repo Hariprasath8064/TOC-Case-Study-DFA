@@ -15,5 +15,6 @@ def generateBaseDFA(alphabetSet, baseString):
         StateFunctions.createState(newState, stateArray)
         currentAlphabet = baseString[i]
         StateFunctions.updateStateProp(newState, currentAlphabet, stateArray)
+        print(stateArray)
         DFA_Matrix[i][index_dict[currentAlphabet]] = newState
     return (DFA_Matrix, stateArray)
