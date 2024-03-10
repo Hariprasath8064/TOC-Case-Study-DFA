@@ -6,7 +6,8 @@ def createState(state, stateArray):
   stateArray.append({state: ""})
 
 def updateStateProp(state, newString, stateArray:list):
-  for key, value in stateArray:
-    if key == state:
-      value += newString
+  for state in stateArray:
+    for key, value in state.items():
+      if key == state:
+        value += newString
 
