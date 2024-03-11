@@ -1,5 +1,5 @@
-import StateFunctions
-def complete_DFA(DFA_Matrix, stateArray, alphadict):
+import StateFunctions, fillTrapStatesDFAMatrix
+def complete_DFA(DFA_Matrix, stateArray, alphadict, baseString, finalStateArray):
     for i in range(len(DFA_Matrix)):
         for j in range(len(DFA_Matrix[0])):
             if DFA_Matrix[i][j] == ' ':
@@ -21,5 +21,5 @@ def complete_DFA(DFA_Matrix, stateArray, alphadict):
                     if flag:
                         break
                 if flag == 0:
-                    DFA_Matrix[i][j] = currentState
+                    fillTrapStatesDFAMatrix.fillTrapStatesDFAMatrix(DFA_Matrix, i, j, transchar, baseString, stateArray, finalStateArray)
     return DFA_Matrix
