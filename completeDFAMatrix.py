@@ -1,3 +1,4 @@
+import StateFunctions
 def complete_DFA(DFA_Matrix, stateArray, alphadict):
     for i in range(len(DFA_Matrix)):
         for j in range(len(DFA_Matrix[0])):
@@ -19,4 +20,6 @@ def complete_DFA(DFA_Matrix, stateArray, alphadict):
                             break
                     if flag:
                         break
+                if flag == 0:
+                    DFA_Matrix[i][j] = currentState
     return DFA_Matrix
