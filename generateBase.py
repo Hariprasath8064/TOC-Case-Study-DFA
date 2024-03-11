@@ -1,5 +1,6 @@
 def generateBase(baseArray, powerArray):
     baseString = ""
+    stateNoforNArray = []
     for i in range(len(baseArray)):
         currentChar = baseArray[i]
         currentPower = powerArray[i]
@@ -7,7 +8,8 @@ def generateBase(baseArray, powerArray):
             powkey = list(currentPower)
             for i in range(currentPower[powkey[0]]):
                 baseString += currentChar
+            stateNoforNArray.append("q"+str(len(baseString)))
         else:
             for i in range(currentPower):
                 baseString += currentChar
-    return baseString
+    return baseString, stateNoforNArray
