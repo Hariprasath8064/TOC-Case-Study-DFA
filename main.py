@@ -1,67 +1,66 @@
-import generateBase, getLanguage, generateBaseAndPowerArray, generateBaseDFA, completeDFAMatrix
-from automata.fa.dfa import DFA
-
-from visual_automata.fa.dfa import VisualDFA
+import generateBase, getLanguage, generateBaseAndPowerArray, generateBaseDFA, completeDFAMatrix, DFAGenerator_Arguements
+from graphviz import Digraph
 
 if __name__ == "__main__":
+  # Initializations
+  dot = Digraph()
+
+  # Get Language Set
   alphabetSet = getLanguage.getLanguage()
+
+  # Get Base Array and Power Array
   baseArray, powerArray = generateBaseAndPowerArray.generateBaseAndPowerArrays(alphabetSet)
   alphadict = {}
   finalStateArray = []
   intermediateNArray = []
   baseCase, intermediateNArray = generateBase.generateBase(baseArray, powerArray)
 
+  # Get Generated Base DFA Matrix
   (DFA_Matrix, stateArray) = generateBaseDFA.generateBaseDFA(alphabetSet, baseCase, finalStateArray)
   for i in range(len(alphabetSet)):
     alphadict[i] = alphabetSet[i]
 
+  # Complete the DFA Matrix 
   DFA_Matrix = completeDFAMatrix.complete_DFA(DFA_Matrix, stateArray, alphadict, baseCase, finalStateArray, intermediateNArray)  
   print("Base Array: ", baseArray)
   print("Power Array: ", powerArray)
   print("intermediate Array: ", intermediateNArray)
   print("Base String: ", baseCase)
-  print("DFA_Matrix: ")
-  for i in DFA_Matrix:
-    print(i)
-  print("State_Array: ", stateArray)
 
-  new_state = set()
-  for state in stateArray:
-    for key in state.keys():
-      new_state.add(key)
+  print("-----------------------------------------")
+  print("State Array with Properties")
+  print("-----------------------------------------")
+  for state_dict in stateArray:
+    for state, value in state_dict.items():
+      print(f"{state}: \"{value}\"")
+  print("------------------------------------------")
 
-  new_input_symbols = set()
-  for i in alphabetSet:
-    new_input_symbols.add(i)
 
+
+  (new_state, new_input_symbols, new_final_state, my_transitions) = DFAGenerator_Arguements.arguementGenerator(stateArray, alphabetSet, finalStateArray, DFA_Matrix)
   new_initial_state = 'q0'
-  print("Final State: ", finalStateArray)
-  new_final_state = set(finalStateArray)
 
-  my_transitions = {}
+  print("-----------------------------------------")
+  print("Transition Table:")
+  print("-----------------------------------------")
+  for state, trans in my_transitions.items():
+    print(f"{state}: ", end="")
+    transitions_str = ", ".join([f"{symbol} -> {dest}" for symbol, dest in trans.items()])
+    print(transitions_str)
+  print("-----------------------------------------")
 
-  # Loop through each state's transitions in the DFA matrix
-  for i, state_transitions in enumerate(DFA_Matrix):
-      state_name = f'q{i}'  # Generate state name dynamically based on index
-      my_transitions[state_name] = {}  # Initialize a new dictionary for this state's transitions
-      
-      # Map each alphabet symbol to the corresponding transition state from the matrix
-      for symbol_index, transition_state in enumerate(state_transitions):
-          if symbol_index < len(alphabetSet):  # Check to avoid index out of range
-              symbol = alphabetSet[symbol_index]  # Get the symbol from the alphabet set
-              my_transitions[state_name][symbol] = transition_state  # Assign the transition state
 
-  # Now 'transitions' contains your DFA in the desired format
-  print("Transitions: ", my_transitions)
+  # Generate Each Node
+  for state in new_state:
+      if state in new_final_state:
+          dot.node(state, shape='doublecircle')
+      else:
+          dot.node(state)
 
-  new_dfa = VisualDFA(
-    states=new_state,
-    input_symbols=new_input_symbols,
-    transitions=my_transitions,
-    initial_state=new_initial_state,
-    final_states=new_final_state,
-  )
-  new_dfa.table
-  new_dfa.show_diagram()
+  # Connect all Nodes with respective Edges from DFA_Matrix
+  for state, transitions in my_transitions.items():
+      for symbol, next_state in transitions.items():
+          dot.edge(state, next_state, label=symbol)
+  dot.render('dfa_graph', format='png', view=True)
 
   

@@ -4,8 +4,6 @@ def fillTrapStatesDFAMatrix(DFA_Matrix, i, j, currentAlphabet, baseString, state
     currentState = "q" + str(i)
     if j < len(DFA_Matrix[0]) and i < len(baseString) and (i>= 0 and baseString[i] == currentAlphabet):
         DFA_Matrix[i][j] = currentState
-    elif currentState in finalStateArray and baseString[-1] == currentAlphabet:
-        DFA_Matrix[i][j] = currentState
     elif currentState in intermediateNArray and baseString[i-1] == currentAlphabet:
         DFA_Matrix[i][j] = currentState
     else:
