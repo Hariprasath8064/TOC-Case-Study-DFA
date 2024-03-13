@@ -10,9 +10,18 @@ def fillTrapStatesDFAMatrix(DFA_Matrix, i, j, currentAlphabet, baseString, state
     DFA_Matrix[i][j] = currentState
 
   else:
-    currentState = "q" + str(len(DFA_Matrix))
-    StateFunctions.createState(currentState, stateArray)
-    DFA_Matrix.append([])
-    for k in range(len(DFA_Matrix[0])):
-      DFA_Matrix[len(DFA_Matrix) - 1].append(currentState)
-    DFA_Matrix[i][j] = currentState
+    flag = 0
+    for state in stateArray:
+      for key in state:
+        if state[key] == "trap":
+          DFA_Matrix[i][j] = key
+          flag = 1
+          break
+    if flag == 0:
+      currentState = "q" + str(len(DFA_Matrix))
+      StateFunctions.createState(currentState, stateArray)
+      StateFunctions.updateStateProp(currentState, "trap", stateArray)
+      DFA_Matrix.append([])
+      for k in range(len(DFA_Matrix[0])):
+        DFA_Matrix[len(DFA_Matrix) - 1].append(currentState)
+      DFA_Matrix[i][j] = currentState
