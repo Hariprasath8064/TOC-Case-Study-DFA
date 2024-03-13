@@ -49,15 +49,16 @@ if __name__ == "__main__":
     print(transitions_str)
   print("-----------------------------------------")
 
+  dot.attr('node', shape = "none")
+  dot.node("")
+  dot.edge("", "q0")
 
-  # Generate Each Node
   for state in new_state:
       if state in new_final_state:
           dot.node(state, shape='doublecircle')
       else:
-          dot.node(state)
+          dot.node(state,shape="circle")
 
-  # Connect all Nodes with respective Edges from DFA_Matrix
   for state, transitions in my_transitions.items():
       for symbol, next_state in transitions.items():
           dot.edge(state, next_state, label=symbol)
