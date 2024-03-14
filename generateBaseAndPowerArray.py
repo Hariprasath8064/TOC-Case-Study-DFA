@@ -1,4 +1,8 @@
-def generateBaseAndPowerArrays(alphabetSet):
+def generateBaseAndPowerArrays():
+  '''
+  This module take care of getting the language input from the user 
+  and stores them in seperate lists of strings
+  '''
   baseArray = []
   powerArray = []
   print("Enter base and power:")

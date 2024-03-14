@@ -1,4 +1,8 @@
 def arguementGenerator(stateArray, alphabetSet, finalStateArray, DFA_Matrix):
+    '''
+    State array is a list of dictionary which is converted into a list 
+    then it is typacasted into set.
+    '''
     new_state = [next(iter(state.keys())) for state in stateArray]
     new_state = set(new_state)
 
@@ -8,7 +12,9 @@ def arguementGenerator(stateArray, alphabetSet, finalStateArray, DFA_Matrix):
     
     new_final_state = set(finalStateArray)
 
-    
+    '''
+    DFA Matrix is converted into a dictionary of dictionaries by the below code.
+    '''    
     my_transitions = {}
     for i, state_transitions in enumerate(DFA_Matrix):
         state_name = "q" + str(i)
